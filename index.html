@@ -28,7 +28,44 @@
     </div>
 
     <script>
-        // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+        const lis_a = document.querySelectorAll('a')
+        const highlight = document.createElement('span')
+        highlight.classList.add('highlight')
+        document.body.appendChild(highlight)
+            // const menu = document.querySelector(".menu")
+        let now = null
+
+        console.log(lis_a);
+
+
+        function setPosition() {
+
+            if (!now) return;
+            // now = this
+            console.log(123);
+            const rectObject = now.getBoundingClientRect()
+            console.log(rectObject);
+            const rect = {
+                width: rectObject.width,
+                height: rectObject.height,
+                top: rectObject.top + window.scrollY,
+                left: rectObject.left + window.scrollX
+            };
+            console.log("rect");
+            console.log(rect);
+            // highligh.classList.add('highligh')
+            highlight.style.width = `${rect.width}px`
+            highlight.style.height = `${rect.height}px`
+            highlight.style.transform = `translate(${rect.left}px,${rect.top}px)`
+
+        }
+
+        function enterHandler() {
+            now = this;
+            setPosition()
+        }
+        lis_a.forEach(a => a.addEventListener('mouseenter', enterHandler))
+        window.addEventListener('resize', setPosition)
     </script>
 </body>
 
